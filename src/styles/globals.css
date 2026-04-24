@@ -2,3 +2,29 @@
 @import "@heroui/styles";
 
 @custom-variant dark (&:is(.dark *));
+
+/* HeroUI Theme */
+@theme {
+  --color-primary: #2563eb;
+  --color-secondary: #9333ea;
+  --color-accent: #14b8a6;
+  --color-success: #16a34a;
+  --color-warning: #f59e0b;
+  --color-danger: #dc2626;
+
+  --color-background: #ffffff;
+  --color-foreground: #111827;
+}
+
+/* Dark mode overrides */
+.dark {
+  --color-background: #0f172a;
+  --color-foreground: #f8fafc;
+
+  --color-primary: #3b82f6;
+  --color-secondary: #a855f7;
+  --color-accent: #2dd4bf;
+  --color-success: #22c55e;
+  --color-warning: #fbbf24;
+  --color-danger: #ef4444;
+}

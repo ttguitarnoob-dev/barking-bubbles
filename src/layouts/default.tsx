@@ -5,6 +5,8 @@ export default function DefaultLayout({
 }: {
   children: React.ReactNode;
 }) {
+
+  const currentYearString: string = new Date().getFullYear().toString();
   return (
     <div className="relative flex flex-col h-screen">
       <Navbar />
@@ -18,8 +20,8 @@ export default function DefaultLayout({
           rel="noopener noreferrer"
           target="_blank"
         >
-          <span className="text-muted">Powered by</span>
-          <p className="text-accent">HeroUI</p>
+          <span className="text-muted">© Copyright {currentYearString}</span>
+          <p className="text-accent">Barking Bubbles</p>
         </a>
       </footer>
     </div>
