@@ -23,6 +23,448 @@ export const Logo: React.FC<IconSvgProps> = ({
   </svg>
 );
 
+export const DogScribbleIcon1: React.FC<IconSvgProps> = ({
+  size = 24,
+  width,
+  height,
+  ...props
+}) => {
+  return (
+    <svg
+      width={size || width}
+      height={size || height}
+      viewBox="0 0 400 400"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M146.766 173.395C144.929 192.224 133.931 288.423 148.656 300.692C154.959 305.941 185.732 303.093 193.787 303.093C206.246 303.093 238.122 308.395 244.222 293.359C254.728 267.463 248.202 206.351 248.202 177.848"
+        stroke="currentColor"
+        strokeOpacity={0.9}
+        strokeWidth={16}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M183.191 246.689C228.583 233.395 191.928 294.189 181.103 250.391"
+        stroke="currentColor"
+        strokeOpacity={0.9}
+        strokeWidth={16}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M177.466 296.744C184.605 263.848 202.209 262.296 210.199 295.692"
+        stroke="currentColor"
+        strokeOpacity={0.9}
+        strokeWidth={16}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M144.099 104.362C131.768 102.603 113.015 98.1036 112.071 109.956C111.23 120.516 118.065 183.07 122.391 183.07C126.264 183.07 150.098 134.192 150.795 129.431"
+        stroke="currentColor"
+        strokeOpacity={0.9}
+        strokeWidth={16}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M238.082 111.383C238.7 120.948 264.717 183.22 265.68 183.07C273.694 181.829 290.474 112.95 288.896 111.383C275.127 97.7261 256.886 105.41 241.587 105.41"
+        stroke="currentColor"
+        strokeOpacity={0.9}
+        strokeWidth={16}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M164.13 109.302C184.383 92.4473 210.49 91.9617 232.021 105.85"
+        stroke="currentColor"
+        strokeOpacity={0.9}
+        strokeWidth={16}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M177.046 164.93C177.497 159.717 177.524 154.297 177.885 149.209"
+        stroke="currentColor"
+        strokeOpacity={0.9}
+        strokeWidth={16}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M220.094 164.93C220.138 159.646 220.177 154.381 219.675 149.209"
+        stroke="currentColor"
+        strokeOpacity={0.9}
+        strokeWidth={16}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
+export const DogScribbleIcon2: React.FC<IconSvgProps> = ({
+  size = 24,
+  width,
+  height,
+  ...props
+}) => {
+  return (
+    <svg
+      width={size || width}
+      height={size || height}
+      viewBox="0 0 400 400"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M203.487 87C130.804 118.225 156.383 172.962 171.389 207.234C177.036 220.131 173.181 222.992 179.286 235.275"
+        stroke="currentColor"
+        strokeOpacity={0.9}
+        strokeWidth={16}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M233.352 89.3916C302.354 105.201 270.094 198.48 248.192 241.254"
+        stroke="currentColor"
+        strokeOpacity={0.9}
+        strokeWidth={16}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M187.883 168.312C178.154 190.38 168.48 218.133 180.19 240.94C185.231 250.76 197.692 242.471 202.085 237.479C206.25 232.746 208.209 217.507 212.736 221.917C220.196 229.179 214.466 241.959 228.123 247.278C257.04 258.545 250.489 183.665 246.469 170.618"
+        stroke="currentColor"
+        strokeOpacity={0.9}
+        strokeWidth={16}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M208.698 191.617C236.731 184.209 211.081 250.525 201.097 198.343"
+        stroke="currentColor"
+        strokeOpacity={0.9}
+        strokeWidth={16}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M203.472 87C203.087 97.7002 202.616 108.567 202.308 119.286"
+        stroke="currentColor"
+        strokeOpacity={0.9}
+        strokeWidth={16}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M231.879 89.3916C226.023 97.6985 227.285 104.984 229.55 113.307"
+        stroke="currentColor"
+        strokeOpacity={0.9}
+        strokeWidth={16}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M184.341 130.048C183.206 135.58 182.695 141.141 182.014 146.788"
+        stroke="currentColor"
+        strokeOpacity={0.9}
+        strokeWidth={16}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M244.103 132.439C244.103 137.621 244.103 142.803 244.103 147.984"
+        stroke="currentColor"
+        strokeOpacity={0.9}
+        strokeWidth={16}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M145.979 164.725C105.082 182.379 121.442 243.742 110.443 277.936C106.174 291.202 95.2109 299.255 90.0508 309.385C88.3451 312.733 130.068 319.975 141.9 295.089C150.162 277.714 150.877 255.334 162.87 240.2"
+        stroke="currentColor"
+        strokeOpacity={0.9}
+        strokeWidth={16}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M287.108 168.312C335.723 194.214 286.259 271.98 311 307.021"
+        stroke="currentColor"
+        strokeOpacity={0.9}
+        strokeWidth={16}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M265.605 214.947C283.38 236.053 249.537 305.825 291.887 305.825"
+        stroke="currentColor"
+        strokeOpacity={0.9}
+        strokeWidth={16}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
+export const DogScribbleIcon3: React.FC<IconSvgProps> = ({
+  size = 24,
+  width,
+  height,
+  ...props
+}) => {
+  return (
+    <svg
+      width={size || width}
+      height={size || height}
+      viewBox="0 0 400 400"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M74 211.658C99.0457 142.251 155.836 87.1314 226.717 108.765C276.177 123.861 255.428 151.992 274.648 170.486C285.492 178.829 314.933 167.631 322.548 178.047C329.28 187.259 324.416 204.065 322.548 215.097C315.179 258.597 265.313 265 223.065 265"
+        stroke="currentColor"
+        strokeOpacity={0.9}
+        strokeWidth={16}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M325 194C321.518 187.392 313.572 181.214 304 176"
+        stroke="currentColor"
+        strokeOpacity={0.9}
+        strokeWidth={16}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M132.242 181.22C129.728 194.908 90.9731 288.143 131.095 296.086C205.608 306.73 196.665 221.971 196.665 169"
+        stroke="currentColor"
+        strokeOpacity={0.9}
+        strokeWidth={16}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M234 168V173"
+        stroke="currentColor"
+        strokeOpacity={0.9}
+        strokeWidth={16}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
+export const DogScribbleIcon4: React.FC<IconSvgProps> = ({
+  size = 24,
+  width,
+  height,
+  ...props
+}) => {
+  return (
+    <svg
+      width={size || width}
+      height={size || height}
+      viewBox="0 0 400 400"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M203.649 130.718C202.646 143.465 203.234 156.293 204.925 168.972C214.145 238.087 244.754 177.369 232.994 118.604"
+        stroke="currentColor"
+        strokeOpacity={0.9}
+        strokeWidth={16}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M245.536 109.548C256.203 102.57 329.311 51.0408 334.604 77.4954C340.357 106.24 281.701 134.658 266.587 153.54C233.414 194.983 240.37 267.19 258.932 313.571"
+        stroke="currentColor"
+        strokeOpacity={0.9}
+        strokeWidth={16}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M188.757 172.667C160.768 213.661 142.788 258.933 133.258 306.557"
+        stroke="currentColor"
+        strokeOpacity={0.9}
+        strokeWidth={16}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M187.483 252.363C200.257 240.696 232.704 250.007 225.121 270.216C220.22 283.275 206.715 296.359 196.414 305.282C192.752 308.454 188.223 311.744 183.655 313.571C182.591 313.996 179.656 314.037 180.465 314.846C182.301 316.68 227.891 302.968 230.224 312.296C231.285 316.538 196.757 326.763 192.586 327.598C170.905 331.931 145.057 331.208 126.242 318.671C122.064 315.888 120.725 309.47 117.31 307.196C116.889 306.915 81.0682 330.857 65 321.222"
+        stroke="currentColor"
+        strokeOpacity={0.9}
+        strokeWidth={16}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M254.625 115.931C255.217 117.802 256.719 119.256 257.955 120.738"
+        stroke="currentColor"
+        strokeOpacity={0.9}
+        strokeWidth={16}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M327.549 76.7464C350.69 73.7804 307.915 95.8559 326.006 77.7741"
+        stroke="currentColor"
+        strokeOpacity={0.9}
+        strokeWidth={16}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
+export const DogScribbleIcon5: React.FC<IconSvgProps> = ({
+  size = 24,
+  width,
+  height,
+  ...props
+}) => {
+  return (
+    <svg
+      width={size || width}
+      height={size || height}
+      viewBox="0 0 400 400"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M247.327 154.684C241.287 129.635 239.633 106.118 259.961 133.946"
+        stroke="currentColor"
+        strokeOpacity={0.9}
+        strokeWidth={16}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M287.721 129.075C300.929 107.948 301.616 118.967 299.614 143.417"
+        stroke="currentColor"
+        strokeOpacity={0.9}
+        strokeWidth={16}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M297.714 146.304C304.632 172.137 312.389 210.647 296.604 234.569C321.533 244.234 339.049 249.067 349.151 249.067C364.305 249.067 364.014 242.903 371 249.067"
+        stroke="currentColor"
+        strokeOpacity={0.9}
+        strokeWidth={16}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M241.084 160.236C230.255 170.161 219.178 181.252 215.545 195.768"
+        stroke="currentColor"
+        strokeOpacity={0.9}
+        strokeWidth={16}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M215.545 190.835C144.168 178.002 105.797 204.852 91.9119 246.772C26.4829 264.873 12.089 276.372 48.7303 281.268"
+        stroke="currentColor"
+        strokeOpacity={0.9}
+        strokeWidth={16}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M165.859 210.275C169.397 208.668 177.78 208.668 183.116 210.469C247.613 232.24 73.0129 252.398 163.134 252.398C170.724 252.398 187.233 251.024 189.936 251.024"
+        stroke="currentColor"
+        strokeOpacity={0.9}
+        strokeWidth={16}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M292.749 169.119C302.64 192.481 265.664 201.32 263.412 173.603"
+        stroke="currentColor"
+        strokeOpacity={0.9}
+        strokeWidth={16}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M281.214 187.995C275.94 185.649 280.909 185.292 282.169 184.664"
+        stroke="currentColor"
+        strokeOpacity={0.9}
+        strokeWidth={16}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M245.526 213.534C249.958 216.297 251.405 221.914 252.84 226.795C263.52 263.112 250.534 243.316 297.643 246.457C304.236 246.897 328.648 250.048 326.444 244.171"
+        stroke="currentColor"
+        strokeOpacity={0.9}
+        strokeWidth={16}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
+export const DogScribbleIcon6: React.FC<IconSvgProps> = ({
+  size = 24,
+  width,
+  height,
+  ...props
+}) => {
+  return (
+    <svg
+      width={size || width}
+      height={size || height}
+      viewBox="0 0 400 400"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M55 196.076C213.97 162.425 328.5 179.5 344.217 163.629C356.262 151.465 347.5 115.501 340.587 111.591C332.881 107.232 302.935 102.413 281 101.629M266.5 75.5C232.987 143.859 249.995 254.767 246.007 323"
+        stroke="currentColor"
+        strokeOpacity={0.9}
+        strokeWidth={16}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M49 150.74C61.5 214.941 69 259.146 69 323.347"
+        stroke="currentColor"
+        strokeOpacity={0.9}
+        strokeWidth={16}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M69 323C113.955 213.209 226.212 186.011 244 321.792"
+        stroke="currentColor"
+        strokeOpacity={0.9}
+        strokeWidth={16}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
 export const DiscordIcon: React.FC<IconSvgProps> = ({
   size = 24,
   width,
