@@ -1,3 +1,4 @@
+import { DogScribbleBackground } from "@/components/DogScribbleBackground";
 import { Navbar } from "@/components/navbar";
 
 export default function DefaultLayout({
@@ -8,7 +9,9 @@ export default function DefaultLayout({
 
   const currentYearString: string = new Date().getFullYear().toString();
   return (
+    
     <div className="relative flex flex-col h-screen">
+      <DogScribbleBackground />
       <Navbar />
       <main className="container mx-auto max-w-7xl px-6 flex-grow pt-16">
         {children}
