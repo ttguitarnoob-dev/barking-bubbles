@@ -5,7 +5,7 @@
 
 /* HeroUI Theme */
 @theme {
-  --color-primary: #2563eb;
+  --color-primary: #7FD8FF;
   --color-secondary: #9333ea;
   --color-accent: #14b8a6;
   --color-success: #16a34a;
@@ -21,9 +21,9 @@
   --color-background: #0f172a;
   --color-foreground: #f8fafc;
 
-  --color-primary: #3b82f6;
-  --color-secondary: #a855f7;
-  --color-accent: #2dd4bf;
+  --color-primary: #4f9de6;
+  --color-secondary: #2dd4bf;
+  --color-accent: #e359d5;
   --color-success: #22c55e;
   --color-warning: #fbbf24;
   --color-danger: #ef4444;
