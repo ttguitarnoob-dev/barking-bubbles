@@ -1,19 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { Button, Kbd, Link, TextField, InputGroup } from "@heroui/react";
+import { Link } from "@heroui/react";
 import clsx from "clsx";
 
 import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
-import {
-  TwitterIcon,
-  GithubIcon,
-  DiscordIcon,
-  HeartFilledIcon,
-  SearchIcon,
-  Logo,
-} from "@/components/icons";
+
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
