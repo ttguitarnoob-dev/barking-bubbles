@@ -12,7 +12,7 @@ export default function IndexPage() {
       </div>
 
       <div className="mt-30">
-      <ImageTextSection imageSrc="/Images/mybubbles.webp"  titleText="Childlike Enthusiasm" subText="Dog grooming services in Bastrop County, child-run with all the fun that goes with it" />
+      <ImageTextSection imageSrc="/Images/dog-mirror.webp"  titleText="A Primped Dog Is A Happy Dog" subText="We will treat your dog like the Prince(ss) that it truly is!" />
       </div>
       
     </DefaultLayout>
