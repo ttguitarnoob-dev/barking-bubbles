@@ -10,18 +10,23 @@ export default function HeroSection() {
     const homePageText = {
         heroMessages: [
             {
-                title: "Turnkey design for dependable performance.",
-                subtitle: "Designed for consistency. Managed for success.",
+                title: "Scrubbin' Pups Like There's No Tomorrow",
+                subtitle: "Small hands, big love",
             },
             {
-                title: "Making reliability repeatable.",
-                subtitle: "Reducing risk. Ensuring repeatability. Delivering performance.",
+                title: "Making your dog not stink for once",
+                subtitle: "It's really pretty easy",
             },
         ]
 
     }
 
-
+    useEffect(() => {
+        const timer = setInterval(() => {
+          setIndex((prev) => (prev + 1) % homePageText.heroMessages.length);
+        }, 10000);
+        return () => clearInterval(timer);
+      }, []);
 
 
 
@@ -47,23 +52,23 @@ export default function HeroSection() {
                             transition={{ duration: 0.6, ease: "easeInOut" }}
                         >
                             <h1 className="text-5xl sm:text-6xl font-bold uppercase">
-                            {homePageText.heroMessages[index].title}
+                                {homePageText.heroMessages[index].title}
                             </h1>
                             <h2 className="text-2xl sm:text-3xl mt-2">
-                            {homePageText.heroMessages[index].subtitle}
+                                {homePageText.heroMessages[index].subtitle}
                             </h2>
                         </motion.div>
                     </AnimatePresence>
-                    <Button>Hello</Button>
+                    <Button>Book A Grooming!</Button>
 
                 </div>
                 <div className="sr-only">
-          {homePageText.heroMessages.map((msg, i) => (
-            <div key={i}>
-              {msg.title} — {msg.subtitle}
-            </div>
-          ))}
-        </div>
+                    {homePageText.heroMessages.map((msg, i) => (
+                        <div key={i}>
+                            {msg.title} — {msg.subtitle}
+                        </div>
+                    ))}
+                </div>
             </section>
         </>
     );
