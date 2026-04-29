@@ -28,6 +28,10 @@ export const siteConfig = {
       label: "About",
       href: "/about",
     },
+    {
+      label: "Contact",
+      href: "/contact",
+    },
   ],
   links: {
     github: "https://github.com/heroui-inc/heroui",

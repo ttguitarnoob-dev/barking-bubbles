@@ -10,7 +10,7 @@ export default function AboutPage() {
           <h1 className={title()}>About Me</h1>
           <Card className="bg-primary/30 backdrop-blur-md mt-10">
             <img
-              src="/Images/bath-dog.webp"
+              src="/Images/hazel-bio.webp"
               className="rounded-2xl"
             />
             <Card.Content>

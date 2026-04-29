@@ -90,13 +90,8 @@ export const Navbar = () => {
                 <Link
                   className={clsx(
                     "block py-2 text-lg no-underline",
-                    index === 2
-                      ? "text-accent"
-                      : index === siteConfig.navMenuItems.length - 1
-                        ? "text-danger"
-                        : "text-foreground",
                   )}
-                  href="#"
+                  href={item.href}
                 >
                   {item.label}
                 </Link>

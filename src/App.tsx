@@ -9,7 +9,7 @@ function App() {
   return (
     <Routes>
       <Route element={<IndexPage />} path="/" />
-      <Route element={<PricingPage />} path="/pricing" />
+      <Route element={<PricingPage />} path="/services" />
       <Route element={<AboutPage />} path="/about" />
       <Route element={<ContactPage />} path="/contact" />
     </Routes>
