@@ -6,27 +6,33 @@ import {
   Input,
   Button,
   Form,
-  Link,
   TextArea,
 } from "@heroui/react";
 
 export default function ContactPage() {
+  
+
   async function handleSubmit(
     e: React.FormEvent<HTMLFormElement>
   ): Promise<void> {
     e.preventDefault();
-
-    const form = e.currentTarget;
-    const formData = new FormData(form);
-
-    const data = {
-      personName: formData.get("personName")?.toString() ?? "",
-      dogName: formData.get("dogName")?.toString() ?? "",
-      email: formData.get("email")?.toString() ?? "",
-      message: formData.get("message")?.toString() ?? "",
-    };
-
-    console.log(data);
+  
+    const formData = new FormData(e.currentTarget);
+  
+    try {
+      const res = await fetch(
+        "https://web-dev2.c-syncapp.com/api/bubbles/contact",
+        {
+          method: "POST",
+          body: formData, // ✅ no headers
+        }
+      );
+  
+      const result = await res.json();
+      console.log("Response:", result);
+    } catch (err) {
+      console.error("Submit failed:", err);
+    }
   }
 
   return (
@@ -45,7 +51,7 @@ export default function ContactPage() {
           <Form onSubmit={handleSubmit}>
             <Card.Content>
               <div className="flex flex-col gap-4">
-                <TextField name="personName" type="text">
+                <TextField name="ownerName" type="text">
                   <Label>Name</Label>
                   <Input
                     className="border border-border/60"
@@ -72,10 +78,10 @@ export default function ContactPage() {
                   />
                 </TextField>
 
-                <TextField name="message">
+                <TextField name="inquiry">
                   <Label>Inquiry</Label>
                   <TextArea
-                    name="message"
+                    name="inquiry"
                     placeholder="What can we do for you?"
                     rows={4}
                   />
