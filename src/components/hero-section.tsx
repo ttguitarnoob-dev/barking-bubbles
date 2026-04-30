@@ -41,7 +41,7 @@ export default function HeroSection() {
                 <div className="absolute inset-0 bg-black/30"></div>
 
                 <div className="relative text-left z-10 flex flex-col gap-3 items-start justify-center h-full px-4 sm:px-6 md:px-10 text-white max-w-7xl mx-auto">
-                    <h1 className="sr-only">Cranberry Consulting Company LLC</h1>
+                    <h1 className="sr-only">Barking Bubbles Dog Cleaning</h1>
                     <AnimatePresence mode="wait">
                         <motion.div
                             key={index}
