@@ -1,3 +1,4 @@
+import { DogScribbleIcon1 } from "@/components/icons";
 import DefaultLayout from "@/layouts/default";
 import {
   Card,
@@ -7,18 +8,23 @@ import {
   Button,
   Form,
   TextArea,
+  Spinner,
 } from "@heroui/react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 
 
 export default function ContactPage() {
 
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
   const navigate = useNavigate()
   async function handleSubmit(
     e: React.FormEvent<HTMLFormElement>
   ): Promise<void> {
     e.preventDefault();
+    setIsSubmitting(true)
 
     const formData = new FormData(e.currentTarget);
 
@@ -94,8 +100,13 @@ export default function ContactPage() {
             </Card.Content>
 
             <Card.Footer className="mt-4 flex flex-col gap-2">
-              <Button className="w-full" type="submit">
-                Send Message
+              <Button isPending={isSubmitting} className="w-full" type="submit">
+                {({ isPending }) => (
+                  <>
+                    {isPending ? <Spinner color="current" size="sm" /> : <DogScribbleIcon1 />}
+                    {isPending ? "Sending..." : "Send Message"}
+                  </>
+                )}
               </Button>
             </Card.Footer>
           </Form>
