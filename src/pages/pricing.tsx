@@ -5,8 +5,8 @@ import { Card } from "@heroui/react";
 export default function PricingPage() {
   return (
     <DefaultLayout>
-      <section className="flex flex-col items-center justify-center gap-10 py-8 md:py-10">
-        
+      <section className="flex flex-col items-center justify-center gap-10 px-8 py-8 md:py-10">
+
         <h1 className={title()}>Pricing</h1>
 
         <div className="max-w-2xl text-center">
@@ -64,11 +64,13 @@ export default function PricingPage() {
           </Card>
 
         </div>
+        <div>
 
-        <p>
-          Includes washing, towel/blow drying, brushing, ear cleaning,
-          finishing cologne, treats.
-        </p>
+          <p>
+            Includes washing, towel/blow drying, brushing, ear cleaning,
+            finishing cologne and treats.
+          </p>
+        </div>
 
       </section>
     </DefaultLayout>
