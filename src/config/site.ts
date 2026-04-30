@@ -7,8 +7,8 @@ export const siteConfig = {
     
     
     {
-      label: "Services",
-      href: "/services",
+      label: "Pricing",
+      href: "/pricing",
     },
     {
       label: "About",
@@ -21,7 +21,7 @@ export const siteConfig = {
   ],
   navMenuItems: [
     {
-      label: "Services",
+      label: "Pricing",
       href: "/pricing",
     },
     {

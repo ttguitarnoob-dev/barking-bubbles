@@ -16,8 +16,8 @@ export default function HeroSection() {
                 subtitle: "Small hands, big love",
             },
             {
-                title: "Making your dog not stink for once",
-                subtitle: "It's really pretty easy",
+                title: "Making your dog not stinky",
+                subtitle: "Get that fur happy!",
             },
         ]
 
