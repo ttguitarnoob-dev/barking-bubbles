@@ -8,28 +8,32 @@ import {
   Form,
   TextArea,
 } from "@heroui/react";
+import { useNavigate } from "react-router-dom";
+
+
 
 export default function ContactPage() {
-  
 
+  const navigate = useNavigate()
   async function handleSubmit(
     e: React.FormEvent<HTMLFormElement>
   ): Promise<void> {
     e.preventDefault();
-  
+
     const formData = new FormData(e.currentTarget);
-  
+
     try {
       const res = await fetch(
-        "https://web-dev2.c-syncapp.com/api/bubbles/contact",
+        "https://kitty-cottage.c-syncapp.com/api/bubbles/contact",
         {
           method: "POST",
-          body: formData, // ✅ no headers
+          body: formData,
         }
       );
-  
+
       const result = await res.json();
       console.log("Response:", result);
+      navigate('/success')
     } catch (err) {
       console.error("Submit failed:", err);
     }
