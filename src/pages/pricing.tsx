@@ -11,7 +11,7 @@ export default function PricingPage() {
 
         <div className="max-w-2xl text-center">
           <p>
-            Here are our prices! If you choose to meet us at Tractor Supply
+            Barking Bubbles is all donation-based. Below are all of our suggested donations for different dog sizes and fur lengths. If you choose to meet us at Tractor Supply
             to use their facilities, an extra $10 will be added to cover the
             Tractor Supply fee.
           </p>
