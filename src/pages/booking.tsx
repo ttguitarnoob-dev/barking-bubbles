@@ -2,7 +2,7 @@
 
 import { BubblesIcon } from "@/components/icons";
 import DefaultLayout from "@/layouts/default";
-import { Button, Card, Form, Input, Label, Link, TextField } from "@heroui/react";
+import { Button, Card, Description, Form, Input, Label, Radio, RadioGroup, Surface, TextArea, TextField } from "@heroui/react";
 
 export default function BookingPage() {
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -22,10 +22,10 @@ export default function BookingPage() {
         <DefaultLayout>
             <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
 
-                <Card className="bg-primary/30 backdrop-blur-sm w-full max-w-md">
+                <Card className="bg-primary/30 backdrop-blur-sm w-full max-w-xl">
                     <Card.Header>
-                        <Card.Title>Scheduling</Card.Title>
-                        <Card.Description>Enter your details and choose a time!</Card.Description>
+                        <Card.Title className="text-xl">Scheduling</Card.Title>
+                        <Card.Description>Enter your doggy details and choose a time!</Card.Description>
                     </Card.Header>
                     <Form onSubmit={onSubmit}>
                         <Card.Content>
@@ -36,11 +36,111 @@ export default function BookingPage() {
                                 </TextField>
                                 <TextField name="email" type="email">
                                     <Label>Email</Label>
-                                    <Input placeholder="email@example.com" variant="primary" />
+                                    <Input placeholder="email@clean.dog" variant="primary" />
                                 </TextField>
-                                <TextField name="password" type="password">
-                                    <Label>Password</Label>
-                                    <Input placeholder="••••••••" variant="primary" />
+                                <TextField name="dogName" type="text">
+                                    <Label>Dog Name</Label>
+                                    <Input placeholder="The pup to be scrubbed" variant="primary" />
+                                </TextField>
+                                <div className="flex flex-col gap-4">
+                                    <Label>Fur Length</Label>
+                                    <RadioGroup defaultValue="pro" name="plan-orientation" orientation="horizontal">
+                                        <Radio value="short">
+                                            <Radio.Control>
+                                                <Radio.Indicator />
+                                            </Radio.Control>
+                                            <Radio.Content>
+                                                <Label>Short</Label>
+                                                {/* <Description>For side projects</Description> */}
+                                            </Radio.Content>
+                                        </Radio>
+                                        <Radio value="medium">
+                                            <Radio.Control>
+                                                <Radio.Indicator />
+                                            </Radio.Control>
+                                            <Radio.Content>
+                                                <Label>Medium</Label>
+                                                {/* <Description>Advanced reporting</Description> */}
+                                            </Radio.Content>
+                                        </Radio>
+                                        <Radio value="long">
+                                            <Radio.Control>
+                                                <Radio.Indicator />
+                                            </Radio.Control>
+                                            <Radio.Content>
+                                                <Label>Long</Label>
+                                                {/* <Description>Up to 10 teammates</Description> */}
+                                            </Radio.Content>
+                                        </Radio>
+                                    </RadioGroup>
+                                </div>
+
+                                <div className="flex flex-col gap-4">
+                                    <Label>Doggy Size</Label>
+                                    <RadioGroup defaultValue="pro" name="plan-orientation" orientation="horizontal">
+                                        <Radio value="small">
+                                            <Radio.Control>
+                                                <Radio.Indicator />
+                                            </Radio.Control>
+                                            <Radio.Content>
+                                                <Label>Small</Label>
+                                                <Description>Tiny but fierce</Description>
+                                            </Radio.Content>
+                                        </Radio>
+                                        <Radio value="medium-size">
+                                            <Radio.Control>
+                                                <Radio.Indicator />
+                                            </Radio.Control>
+                                            <Radio.Content>
+                                                <Label>Medium</Label>
+                                                <Description>Finely tuned agility</Description>
+                                            </Radio.Content>
+                                        </Radio>
+                                        <Radio value="large">
+                                            <Radio.Control>
+                                                <Radio.Indicator />
+                                            </Radio.Control>
+                                            <Radio.Content>
+                                                <Label>Large</Label>
+                                                <Description>Just a huge teddy bear</Description>
+                                            </Radio.Content>
+                                        </Radio>
+                                    </RadioGroup>
+                                </div>
+
+                                <div className="flex flex-col gap-4">
+                                    <Label>Food Allergies</Label>
+                                    <Description>We like to give treats during the cleaning, so let us know if there's something your dog doesn't take kindly to</Description>
+
+                                    <RadioGroup defaultValue="pro" name="plan-orientation" orientation="horizontal">
+                                        <Radio value="yes-allergy">
+                                            <Radio.Control>
+                                                <Radio.Indicator />
+                                            </Radio.Control>
+                                            <Radio.Content>
+                                                <Label>Yes</Label>
+                                                {/* <Description>For side projects</Description> */}
+                                            </Radio.Content>
+                                        </Radio>
+                                        <Radio value="no-allergy">
+                                            <Radio.Control>
+                                                <Radio.Indicator />
+                                            </Radio.Control>
+                                            <Radio.Content>
+                                                <Label>No</Label>
+                                                {/* <Description>Advanced reporting</Description> */}
+                                            </Radio.Content>
+                                        </Radio>
+
+                                    </RadioGroup>
+                                </div>
+                                <TextField name="details">
+                                    <Label>Additional Details</Label>
+                                    <TextArea
+                                        name="details"
+                                        placeholder="Is there anything specific we should know about this dog?"
+                                        rows={4}
+                                    />
                                 </TextField>
                             </div>
                         </Card.Content>
@@ -52,6 +152,13 @@ export default function BookingPage() {
                         </Card.Footer>
                     </Form>
                 </Card>
+
+                <Surface className="flex min-w-[320px] max-w-md bg-secondary/10 backdrop-blur-sm flex-col gap-3 rounded-3xl p-6" variant="default">
+                    <h3 className="text-base font-semibold text-foreground">Privacy</h3>
+                    <p className="text-sm text-muted">
+                        We keep this information in our system solely for the purpose of scheduling, contacting, and keeping track of your punch cards. It will only be seen by us, and we will never share it with anyone.
+                    </p>
+                </Surface>
             </section>
         </DefaultLayout>
     );
