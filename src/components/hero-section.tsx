@@ -1,10 +1,8 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Button } from "@heroui/react";
-import { useNavigate } from "react-router-dom";
+import BookingButton from "./booking-button";
 
 export default function HeroSection() {
-    const navigate = useNavigate()
 
     // State for rotating title
     const [index, setIndex] = useState(0);
@@ -61,7 +59,7 @@ export default function HeroSection() {
                             </h2>
                         </motion.div>
                     </AnimatePresence>
-                    <Button onPress={() => navigate('/contact')}>Contact Us!</Button>
+                    <BookingButton />
 
                 </div>
                 <div className="sr-only">

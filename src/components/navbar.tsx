@@ -6,10 +6,12 @@ import clsx from "clsx";
 
 import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
+import BookingButton from "./booking-button";
 
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
 
   return (
     <nav className="sticky top-0 z-40 w-full border-b border-separator bg-primary/70 backdrop-blur-lg">
@@ -23,7 +25,7 @@ export const Navbar = () => {
             />
 
           </a>
-          <ul className="hidden lg:flex gap-4 ml-2">
+          <ul className="hidden lg:flex items-center gap-4 ml-2">
             {siteConfig.navItems.map((item) => (
               <li key={item.href}>
                 <a
@@ -37,6 +39,9 @@ export const Navbar = () => {
                 </a>
               </li>
             ))}
+            <li>
+              <BookingButton />
+            </li>
           </ul>
         </div>
 
