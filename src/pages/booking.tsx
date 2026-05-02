@@ -2,7 +2,7 @@
 
 import { BubblesIcon } from "@/components/icons";
 import DefaultLayout from "@/layouts/default";
-import { Button, Card, Description, Form, Input, Label, Radio, RadioGroup, Surface, TextArea, TextField } from "@heroui/react";
+import { Button, Card, Checkbox, Description, Form, Input, Label, Radio, RadioGroup, Surface, Tabs, TextArea, TextField } from "@heroui/react";
 
 export default function BookingPage() {
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -77,7 +77,7 @@ export default function BookingPage() {
 
                                 <div className="flex flex-col gap-4">
                                     <Label>Doggy Size</Label>
-                                    <RadioGroup defaultValue="pro" name="plan-orientation" orientation="horizontal">
+                                    <RadioGroup defaultValue="small" name="plan-orientation" orientation="horizontal">
                                         <Radio value="small">
                                             <Radio.Control>
                                                 <Radio.Indicator />
@@ -112,7 +112,7 @@ export default function BookingPage() {
                                     <Label>Food Allergies</Label>
                                     <Description>We like to give treats during the cleaning, so let us know if there's something your dog doesn't take kindly to</Description>
 
-                                    <RadioGroup defaultValue="pro" name="plan-orientation" orientation="horizontal">
+                                    <RadioGroup defaultValue="no-allergy" name="plan-orientation" orientation="horizontal">
                                         <Radio value="yes-allergy">
                                             <Radio.Control>
                                                 <Radio.Indicator />
@@ -133,6 +133,76 @@ export default function BookingPage() {
                                         </Radio>
 
                                     </RadioGroup>
+                                </div>
+                                <div className="flex flex-col gap-4 w-full">
+
+                                    <Label>Meet Location</Label>
+                                    <Tabs className="w-full max-w-md" variant="secondary">
+                                        <Tabs.ListContainer>
+                                            <Tabs.List aria-label="Options">
+                                                <Tabs.Tab id="tractor-supply">
+                                                    Tractor Supply
+                                                    <Tabs.Indicator />
+                                                </Tabs.Tab>
+                                                <Tabs.Tab id="yours">
+                                                    Your Place
+                                                    <Tabs.Indicator />
+                                                </Tabs.Tab>
+                                                <Tabs.Tab id="ours">
+                                                    Our Place
+                                                    <Tabs.Indicator />
+                                                </Tabs.Tab>
+                                            </Tabs.List>
+                                        </Tabs.ListContainer>
+                                        <Tabs.Panel className="pt-4" id="tractor-supply">
+                                            <Label>Which Tractor Supply Location?</Label>
+                                            <RadioGroup name="plan-orientation" orientation="horizontal">
+                                                <Radio value="bastrop">
+                                                    <Radio.Control>
+                                                        <Radio.Indicator />
+                                                    </Radio.Control>
+                                                    <Radio.Content>
+                                                        <Label>Bastrop</Label>
+                                                        <Description>Tiny but fierce</Description>
+                                                    </Radio.Content>
+                                                </Radio>
+                                                <Radio value="Elgin">
+                                                    <Radio.Control>
+                                                        <Radio.Indicator />
+                                                    </Radio.Control>
+                                                    <Radio.Content>
+                                                        <Label>Elgin</Label>
+                                                        <Description>Finely tuned agility</Description>
+                                                    </Radio.Content>
+                                                </Radio>
+                                                <Radio value="Giddings">
+                                                    <Radio.Control>
+                                                        <Radio.Indicator />
+                                                    </Radio.Control>
+                                                    <Radio.Content>
+                                                        <Label>Giddings</Label>
+                                                        <Description>Just a huge teddy bear</Description>
+                                                    </Radio.Content>
+                                                </Radio>
+                                            </RadioGroup>
+                                        </Tabs.Panel>
+                                        <Tabs.Panel className="pt-4" id="yours">
+                                            <TextField name="ownerAddress" type="text">
+                                                <Label>Provide Your Address</Label>
+                                                <Input placeholder="Owner's Address" variant="primary" />
+                                            </TextField>
+                                        </Tabs.Panel>
+                                        <Tabs.Panel className="pt-4" id="ours">
+                                            <Checkbox id="basic-terms">
+                                                <Checkbox.Control>
+                                                    <Checkbox.Indicator />
+                                                </Checkbox.Control>
+                                                <Checkbox.Content>
+                                                    <Label htmlFor="basic-terms">I agree, address will be provided after booking is confirmed.</Label>
+                                                </Checkbox.Content>
+                                            </Checkbox>
+                                        </Tabs.Panel>
+                                    </Tabs>
                                 </div>
                                 <TextField name="details">
                                     <Label>Additional Details</Label>
