@@ -3,37 +3,90 @@
 import AvailabilityPicker, { SelectedAppointment } from "@/components/availability-picker";
 import { BubblesIcon } from "@/components/icons";
 import DefaultLayout from "@/layouts/default";
+import { Appointment } from "@/types";
 import { Button, Card, Checkbox, Description, Form, Input, Label, Radio, RadioGroup, Surface, Tabs, TextArea, TextField } from "@heroui/react";
 import { useState } from "react";
 
 export default function BookingPage() {
 
     const openSlots: Record<string, string[]> = {
-        "2026-04-04": ["2:00 PM", "4:00 PM"],
-        "2026-04-05": ["9:30 AM", "11:00 AM"],
-        "2026-04-07": ["1:00 PM", "3:30 PM", "5:00 PM"],
-        "2026-04-10": ["10:00 AM"],
-        "2026-04-12": ["8:30 AM", "2:00 PM"],
-        "2026-04-15": ["9:00 AM", "12:30 PM", "4:00 PM"],
-        "2026-04-18": ["11:00 AM", "1:30 PM"],
-        "2026-04-21": ["10:30 AM", "3:00 PM"],
-        "2026-04-24": ["9:00 AM", "11:30 AM", "2:30 PM"],
-        "2026-04-28": ["1:00 PM", "4:30 PM"],
-      };
+        "2026-05-04": ["2:00 PM", "4:00 PM"],
+        "2026-05-05": ["9:30 AM", "11:00 AM"],
+        "2026-05-07": ["1:00 PM", "3:30 PM", "5:00 PM"],
+        "2026-05-10": ["10:00 AM"],
+        "2026-05-12": ["8:30 AM", "2:00 PM"],
+        "2026-05-15": ["9:00 AM", "12:30 PM", "4:00 PM"],
+        "2026-05-18": ["11:00 AM", "1:30 PM"],
+        "2026-05-21": ["10:30 AM", "3:00 PM"],
+        "2026-05-24": ["9:00 AM", "11:30 AM", "2:30 PM"],
+        "2026-05-28": ["1:00 PM", "4:30 PM"],
+    };
 
     const [selectedTime, setSelectedTime] = useState<SelectedAppointment>(null);
+    const [location, setLocation] = useState("")
+    const [isOurPlace, setisOurPlace] = useState(true);
+    const [allergy, setAllergy] = useState("no-allergy")
+
+    // const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    //     e.preventDefault();
+    //     const formData = new FormData(e.currentTarget);
+    //     const data: Record<string, string> = {};
+
+    //     // Convert FormData to plain object
+    //     formData.forEach((value, key) => {
+    //         data[key] = value.toString();
+    //     });
+
+    //     alert("Form submitted successfully!");
+    // };
 
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        if (!selectedTime) {
+            console.error("No appointment time selected");
+            return;
+        }
+
         const formData = new FormData(e.currentTarget);
-        const data: Record<string, string> = {};
 
-        // Convert FormData to plain object
-        formData.forEach((value, key) => {
-            data[key] = value.toString();
-        });
+        // Parse date/time 
+        const [hourPart, minutePart] = selectedTime.time.split(/[: ]/);
+        const isPM = selectedTime.time.includes("PM");
 
-        alert("Form submitted successfully!");
+        let hours = Number(hourPart);
+        const minutes = Number(minutePart);
+
+        if (isPM && hours !== 12) hours += 12;
+        if (!isPM && hours === 12) hours = 0;
+
+        const [year, month, day] = selectedTime.date.split("-").map(Number);
+
+        const appointmentDate = new Date(year, month - 1, day, hours, minutes);
+
+        const appointment: Appointment = {
+            ownerName: formData.get("ownerName")?.toString() ?? "",
+            email: formData.get("email")?.toString() ?? "",
+            phoneNumber: formData.get("phoneNumber")?.toString() || undefined,
+            dogName: formData.get("dogName")?.toString() ?? "",
+
+            // assumes AvailabilityPicker gives { date, time }
+            time: appointmentDate,
+
+            furLength: formData.get("furLength")?.toString() ?? "",
+            dogSize: formData.get("dogSize")?.toString() ?? "",
+
+            allergy: allergy === "yes-allergy",
+            allergyDescription:
+                allergy === "yes-allergy"
+                    ? formData.get("allergyDescription")?.toString() || undefined
+                    : undefined,
+
+            location,
+            additionalDetails: formData.get("details")?.toString() ?? "",
+        };
+
+        console.log(appointment);
     };
 
     return (
@@ -50,19 +103,25 @@ export default function BookingPage() {
                             <div className="flex flex-col gap-4">
                                 <TextField name="ownerName" type="text">
                                     <Label>Name</Label>
-                                    <Input placeholder="Owner's Name" variant="primary" />
+                                    <Input placeholder="Human's Name" variant="primary" />
                                 </TextField>
                                 <TextField name="email" type="email">
                                     <Label>Email</Label>
                                     <Input placeholder="email@clean.dog" variant="primary" />
                                 </TextField>
+                                <TextField name="phoneNumber" type="phone">
+                                    <Label>Phone Number</Label>
+                                    <Input placeholder="Optional" variant="primary" />
+                                </TextField>
                                 <TextField name="dogName" type="text">
                                     <Label>Dog Name</Label>
                                     <Input placeholder="The pup to be scrubbed" variant="primary" />
                                 </TextField>
+                                {/* sets selectedTime  */}
+                                <AvailabilityPicker openSlots={openSlots} value={selectedTime} onChange={setSelectedTime} />
                                 <div className="flex flex-col gap-4">
                                     <Label>Fur Length</Label>
-                                    <RadioGroup defaultValue="pro" name="plan-orientation" orientation="horizontal">
+                                    <RadioGroup defaultValue="pro" name="furLength" orientation="horizontal">
                                         <Radio value="short">
                                             <Radio.Control>
                                                 <Radio.Indicator />
@@ -95,7 +154,7 @@ export default function BookingPage() {
 
                                 <div className="flex flex-col gap-4">
                                     <Label>Doggy Size</Label>
-                                    <RadioGroup defaultValue="small" name="plan-orientation" orientation="horizontal">
+                                    <RadioGroup defaultValue="small" name="dogSize" orientation="horizontal">
                                         <Radio value="small">
                                             <Radio.Control>
                                                 <Radio.Indicator />
@@ -130,7 +189,7 @@ export default function BookingPage() {
                                     <Label>Food Allergies</Label>
                                     <Description>We like to give treats during the cleaning, so let us know if there's something your dog doesn't take kindly to</Description>
 
-                                    <RadioGroup defaultValue="no-allergy" name="plan-orientation" orientation="horizontal">
+                                    <RadioGroup value={allergy} onChange={setAllergy} defaultValue="no-allergy" name="allergy" orientation="horizontal">
                                         <Radio value="yes-allergy">
                                             <Radio.Control>
                                                 <Radio.Indicator />
@@ -151,6 +210,11 @@ export default function BookingPage() {
                                         </Radio>
 
                                     </RadioGroup>
+                                    {allergy === "yes-allergy" && (
+                                        <TextField name="allergyDescription" type="text">
+                                            <Input placeholder="Brief allergy description" variant="primary" />
+                                        </TextField>
+                                    )}
                                 </div>
                                 <div className="flex flex-col gap-4 w-full">
 
@@ -174,7 +238,7 @@ export default function BookingPage() {
                                         </Tabs.ListContainer>
                                         <Tabs.Panel className="pt-4" id="tractor-supply">
                                             <Label>Which Tractor Supply Location?</Label>
-                                            <RadioGroup name="plan-orientation" orientation="horizontal">
+                                            <RadioGroup value={location} onChange={setLocation} name="plan-orientation" orientation="horizontal">
                                                 <Radio value="bastrop">
                                                     <Radio.Control>
                                                         <Radio.Indicator />
@@ -184,7 +248,7 @@ export default function BookingPage() {
                                                         <Description>437 W SH 71 Service Rd</Description>
                                                     </Radio.Content>
                                                 </Radio>
-                                                <Radio value="Elgin">
+                                                <Radio value="elgin">
                                                     <Radio.Control>
                                                         <Radio.Indicator />
                                                     </Radio.Control>
@@ -193,7 +257,7 @@ export default function BookingPage() {
                                                         <Description>18517 E US Highway 290</Description>
                                                     </Radio.Content>
                                                 </Radio>
-                                                <Radio value="Giddings">
+                                                <Radio value="giddings">
                                                     <Radio.Control>
                                                         <Radio.Indicator />
                                                     </Radio.Control>
@@ -203,15 +267,16 @@ export default function BookingPage() {
                                                     </Radio.Content>
                                                 </Radio>
                                             </RadioGroup>
+
                                         </Tabs.Panel>
                                         <Tabs.Panel className="pt-4" id="yours">
                                             <TextField name="ownerAddress" type="text">
                                                 <Label>Provide Your Address</Label>
-                                                <Input placeholder="Owner's Address" variant="primary" />
+                                                <Input placeholder="Owner's Address" variant="primary" onChange={(event) => setLocation(event.target.value)} />
                                             </TextField>
                                         </Tabs.Panel>
                                         <Tabs.Panel className="pt-4" id="ours">
-                                            <Checkbox id="basic-terms">
+                                            <Checkbox id="basic-terms" isSelected={isOurPlace} onChange={setisOurPlace}>
                                                 <Checkbox.Control>
                                                     <Checkbox.Indicator />
                                                 </Checkbox.Control>
@@ -221,6 +286,7 @@ export default function BookingPage() {
                                             </Checkbox>
                                         </Tabs.Panel>
                                     </Tabs>
+
                                 </div>
                                 <TextField name="details">
                                     <Label>Additional Details</Label>
@@ -231,7 +297,8 @@ export default function BookingPage() {
                                     />
                                 </TextField>
                             </div>
-                            <AvailabilityPicker openSlots={openSlots} value={selectedTime} onChange={setSelectedTime} />
+
+
                         </Card.Content>
                         <Card.Footer className="mt-4 flex flex-col gap-2">
                             <Button className="w-full" type="submit">
