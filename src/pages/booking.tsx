@@ -1,10 +1,28 @@
 "use client";
 
+import AvailabilityPicker, { SelectedAppointment } from "@/components/availability-picker";
 import { BubblesIcon } from "@/components/icons";
 import DefaultLayout from "@/layouts/default";
 import { Button, Card, Checkbox, Description, Form, Input, Label, Radio, RadioGroup, Surface, Tabs, TextArea, TextField } from "@heroui/react";
+import { useState } from "react";
 
 export default function BookingPage() {
+
+    const openSlots: Record<string, string[]> = {
+        "2026-04-04": ["2:00 PM", "4:00 PM"],
+        "2026-04-05": ["9:30 AM", "11:00 AM"],
+        "2026-04-07": ["1:00 PM", "3:30 PM", "5:00 PM"],
+        "2026-04-10": ["10:00 AM"],
+        "2026-04-12": ["8:30 AM", "2:00 PM"],
+        "2026-04-15": ["9:00 AM", "12:30 PM", "4:00 PM"],
+        "2026-04-18": ["11:00 AM", "1:30 PM"],
+        "2026-04-21": ["10:30 AM", "3:00 PM"],
+        "2026-04-24": ["9:00 AM", "11:30 AM", "2:30 PM"],
+        "2026-04-28": ["1:00 PM", "4:30 PM"],
+      };
+
+    const [selectedTime, setSelectedTime] = useState<SelectedAppointment>(null);
+
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
@@ -163,7 +181,7 @@ export default function BookingPage() {
                                                     </Radio.Control>
                                                     <Radio.Content>
                                                         <Label>Bastrop</Label>
-                                                        <Description>Tiny but fierce</Description>
+                                                        <Description>437 W SH 71 Service Rd</Description>
                                                     </Radio.Content>
                                                 </Radio>
                                                 <Radio value="Elgin">
@@ -172,7 +190,7 @@ export default function BookingPage() {
                                                     </Radio.Control>
                                                     <Radio.Content>
                                                         <Label>Elgin</Label>
-                                                        <Description>Finely tuned agility</Description>
+                                                        <Description>18517 E US Highway 290</Description>
                                                     </Radio.Content>
                                                 </Radio>
                                                 <Radio value="Giddings">
@@ -181,7 +199,7 @@ export default function BookingPage() {
                                                     </Radio.Control>
                                                     <Radio.Content>
                                                         <Label>Giddings</Label>
-                                                        <Description>Just a huge teddy bear</Description>
+                                                        <Description>2911 E Austin St</Description>
                                                     </Radio.Content>
                                                 </Radio>
                                             </RadioGroup>
@@ -213,6 +231,7 @@ export default function BookingPage() {
                                     />
                                 </TextField>
                             </div>
+                            <AvailabilityPicker openSlots={openSlots} value={selectedTime} onChange={setSelectedTime} />
                         </Card.Content>
                         <Card.Footer className="mt-4 flex flex-col gap-2">
                             <Button className="w-full" type="submit">
