@@ -92,7 +92,7 @@ export default function BookingPage() {
     return (
         <DefaultLayout>
             <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
-
+<h1 className="text-4xl"><span className="font-bold text-red-600">** Important **</span> This booking form is still under development. You can play with it but it doesn't do anything when you click submit! For now, please visit our <a className="font-bold underline text-secondary" href="/contact">Contact Page</a> if you would like to book.</h1>
                 <Card className="bg-primary/30 backdrop-blur-sm w-full max-w-xl">
                     <Card.Header>
                         <Card.Title className="text-xl">Scheduling</Card.Title>
