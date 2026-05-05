@@ -65,6 +65,9 @@ export default function AvailabilityPicker({
         });
 
         setIsOpen(false);
+        if(isOpen) {
+            console.log("OMGITSOPEN")
+        }
     }
 
     // function handleClose() {
