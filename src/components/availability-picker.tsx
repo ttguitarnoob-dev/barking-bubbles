@@ -1,187 +1,229 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import {
-    Button,
-    Calendar,
-    Label,
-    Modal,
-} from "@heroui/react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Button, Calendar, Label, Modal } from "@heroui/react";
 import type { DateValue } from "@internationalized/date";
 
-type OpenSlotsByDate = Record<string, string[]>;
+type Slot = {
+  id: string;
+  time: string;
+};
+
+type OpenSlotsByDate = Record<string, Slot[]>;
 
 export type SelectedAppointment = {
-    date: string;
-    time: string;
+  date: string;
+  slotId: string;
+  time: string;
 } | null;
 
 type AvailabilityPickerProps = {
-    openSlots: OpenSlotsByDate;
-    value: SelectedAppointment;
-    onChange: (value: SelectedAppointment) => void;
+  value: SelectedAppointment;
+  onChange: (value: SelectedAppointment) => void;
 };
 
 function formatDate(date: string) {
-    return new Date(`${date}T00:00:00`).toLocaleDateString("en-US", {
-        weekday: "long",
-        month: "long",
-        day: "numeric",
-        year: "numeric",
-    });
+  return new Date(`${date}T00:00:00`).toLocaleDateString("en-US", {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
 }
 
 function dateKey(date: DateValue) {
-    return date.toString();
+  return date.toString();
 }
 
 export default function AvailabilityPicker({
-    openSlots,
-    value,
-    onChange,
+  value,
+  onChange,
 }: AvailabilityPickerProps) {
-    const [isOpen, setIsOpen] = useState(false);
-    const [selectedDate, setSelectedDate] = useState<DateValue | null>(null);
-    const [selectedTime, setSelectedTime] = useState<string | null>(null);
+  const now = new Date();
+  const baseURL = "web-dev2.c-syncapp.com"
+  console.log("HITTING OMPONENT")
 
-    const selectedDateKey = selectedDate ? dateKey(selectedDate) : null;
+  const [openSlots, setOpenSlots] = useState<OpenSlotsByDate>({});
+  const loadedYears = useRef(new Set<number>());
 
-    const selectedSlots = useMemo(() => {
-        if (!selectedDateKey) return [];
-        return openSlots[selectedDateKey] ?? [];
-    }, [selectedDateKey, openSlots]);
+  const [selectedDate, setSelectedDate] = useState<DateValue | null>(null);
+  const [selectedSlotId, setSelectedSlotId] = useState<string | null>(null);
 
-    function handleDateChange(date: DateValue) {
-        setSelectedDate(date);
-        setSelectedTime(null);
-    }
+  const [visibleYear, setVisibleYear] = useState(now.getFullYear());
 
-    function handleConfirm() {
-        if (!selectedDateKey || !selectedTime) return;
+  async function loadYear(year: number) {
+    console.log("GITIN loadyear loadin")
+    if (loadedYears.current.has(year)) return;
 
-        onChange({
-            date: selectedDateKey,
-            time: selectedTime,
-        });
+    const res = await fetch(`https://web-dev2.c-syncapp.com/api/bubbles/availability?year=${year}`);
+    console.log("GOTRES", res)
+    if (!res.ok) {
+      console.log("GOTSTUFFBAD")
+    };
 
-        setIsOpen(false);
-        if(isOpen) {
-            console.log("OMGITSOPEN")
-        }
-    }
+    const data: OpenSlotsByDate = await res.json();
+    console.log("SLOTS", data)
 
-    // function handleClose() {
-    //     setIsOpen(false);
-    // }
+    setOpenSlots((prev) => ({
+      ...prev,
+      ...data,
+    }));
 
-    return (
-        <>
-            <Label>Appointment Time</Label>
-            {value && (
-                <p className="mt-2 text-sm text-default-500">
-                    {formatDate(value.date)} at {value.time}
-                </p>
-            )}
-            <Modal>
-                <Button variant="primary">Select Time Slot</Button>
-                <Modal.Backdrop>
-                    <Modal.Container>
-                        <Modal.Dialog className="sm:max-w-[360px]">
-                            <Modal.CloseTrigger />
-                            <Modal.Header>
-                                <Modal.Icon className="bg-default text-foreground">
-                                    {/* <Rocket className="size-5" /> */}
-                                </Modal.Icon>
-                                <Modal.Heading>Welcome to HeroUI</Modal.Heading>
-                            </Modal.Header>
-                            <Modal.Body>
-                                <div className="flex flex-col gap-5">
-                                    <Calendar
-                                        aria-label="Appointment date"
-                                        value={selectedDate}
-                                        onChange={handleDateChange}
-                                        isDateUnavailable={(date) => !openSlots[dateKey(date)]?.length}
-                                    >
-                                        <Calendar.Header>
-                                            <Calendar.Heading />
-                                            <Calendar.NavButton slot="previous" />
-                                            <Calendar.NavButton slot="next" />
-                                        </Calendar.Header>
+    loadedYears.current.add(year);
+  }
 
-                                        <Calendar.Grid>
-                                            <Calendar.GridHeader>
-                                                {(day) => <Calendar.HeaderCell>{day}</Calendar.HeaderCell>}
-                                            </Calendar.GridHeader>
+  useEffect(() => {
+    loadYear(visibleYear);
+  }, [visibleYear]);
 
-                                            <Calendar.GridBody>
-                                                {(date) => {
-                                                    const hasSlots = !!openSlots[dateKey(date)]?.length;
+  const selectedDateKey = selectedDate ? dateKey(selectedDate) : null;
 
-                                                    return (
-                                                        <Calendar.Cell date={date}>
-                                                            {({ formattedDate }) => (
-                                                                <>
-                                                                    {formattedDate}
-                                                                    {hasSlots && <Calendar.CellIndicator />}
-                                                                </>
-                                                            )}
-                                                        </Calendar.Cell>
-                                                    );
-                                                }}
-                                            </Calendar.GridBody>
-                                        </Calendar.Grid>
-                                    </Calendar>
+  const selectedSlots = useMemo(() => {
+    if (!selectedDateKey) return [];
+    return openSlots[selectedDateKey] ?? [];
+  }, [selectedDateKey, openSlots]);
 
-                                    {selectedDate && (
-                                        <div className="rounded-xl border border-default-200 p-4">
-                                            <div className="mb-3 text-sm font-medium">
-                                                Available times for {selectedDate.toString()}
-                                            </div>
+  function handleDateChange(date: DateValue) {
+    setSelectedDate(date);
+    setSelectedSlotId(null);
+  }
 
-                                            {selectedSlots.length > 0 ? (
-                                                <div className="flex flex-wrap gap-2">
-                                                    {selectedSlots.map((slot) => {
-                                                        const isSelected = selectedTime === slot;
+  function handleConfirm() {
+    if (!selectedDateKey || !selectedSlotId) return;
 
-                                                        return (
-                                                            <Button
-                                                                key={slot}
-                                                                size="sm"
-                                                                variant={isSelected ? "primary" : "outline"}
-                                                                onPress={() => setSelectedTime(slot)}
-                                                            >
-                                                                {slot}
-                                                            </Button>
-                                                        );
-                                                    })}
-                                                </div>
-                                            ) : (
-                                                <div className="text-sm text-default-500">
-                                                    No available times for this date.
-                                                </div>
-                                            )}
-                                        </div>
-                                    )}
+    const slot = selectedSlots.find((s) => s.id === selectedSlotId);
+    if (!slot) return;
 
-                                    {value && (
-                                        <div className="text-sm text-default-500">
-                                            Current selection: {value.date} at {value.time}
-                                        </div>
-                                    )}
-                                </div>
-                            </Modal.Body>
-                            <Modal.Footer>
-                                <Button className="w-full" slot="close" onPress={handleConfirm}>
-                                    Continue
-                                </Button>
+    onChange({
+      date: selectedDateKey,
+      slotId: slot.id,
+      time: slot.time,
+    });
+  }
 
-                            </Modal.Footer>
-                        </Modal.Dialog>
-                    </Modal.Container>
-                </Modal.Backdrop>
-            </Modal>
+  return (
+    <>
+      <Label>Appointment Timez</Label>
 
+      {value && (
+        <p className="mt-2 text-sm text-default-500">
+          {formatDate(value.date)} at {value.time}
+        </p>
+      )}
 
-        </>
-    );
+      <Modal>
+        <Button variant="primary">Select Time Slot</Button>
+
+        <Modal.Backdrop>
+          <Modal.Container>
+            <Modal.Dialog className="sm:max-w-[360px]">
+              <Modal.CloseTrigger />
+
+              <Modal.Header>
+                <Modal.Heading>Select appointment</Modal.Heading>
+              </Modal.Header>
+
+              <Modal.Body>
+                <div className="flex flex-col gap-5">
+                  <Calendar
+                    aria-label="Appointment date"
+                    value={selectedDate}
+                    onChange={handleDateChange}
+                    onFocusChange={(date) => {
+                      if (!date) return;
+
+                      if (date.year !== visibleYear) {
+                        setVisibleYear(date.year);
+                      }
+                    }}
+                    isDateUnavailable={(date) =>
+                      !openSlots[dateKey(date)]?.length
+                    }
+                  >
+                    <Calendar.Header>
+                      <Calendar.Heading />
+                      <Calendar.NavButton slot="previous" />
+                      <Calendar.NavButton slot="next" />
+                    </Calendar.Header>
+
+                    <Calendar.Grid>
+                      <Calendar.GridHeader>
+                        {(day) => (
+                          <Calendar.HeaderCell>{day}</Calendar.HeaderCell>
+                        )}
+                      </Calendar.GridHeader>
+
+                      <Calendar.GridBody>
+                        {(date) => {
+                          const hasSlots = !!openSlots[dateKey(date)]?.length;
+
+                          return (
+                            <Calendar.Cell date={date}>
+                              {({ formattedDate }) => (
+                                <>
+                                  {formattedDate}
+                                  {hasSlots && <Calendar.CellIndicator />}
+                                </>
+                              )}
+                            </Calendar.Cell>
+                          );
+                        }}
+                      </Calendar.GridBody>
+                    </Calendar.Grid>
+                  </Calendar>
+
+                  {selectedDate && (
+                    <div className="rounded-xl border border-default-200 p-4">
+                      <div className="mb-3 text-sm font-medium">
+                        Available times for {selectedDate.toString()}
+                      </div>
+
+                      {selectedSlots.length > 0 ? (
+                        <div className="flex flex-wrap gap-2">
+                          {selectedSlots.map((slot) => {
+                            const isSelected = selectedSlotId === slot.id;
+
+                            return (
+                              <Button
+                                key={slot.id}
+                                size="sm"
+                                variant={isSelected ? "primary" : "outline"}
+                                onPress={() => setSelectedSlotId(slot.id)}
+                              >
+                                {slot.time}
+                              </Button>
+                            );
+                          })}
+                        </div>
+                      ) : (
+                        <div className="text-sm text-default-500">
+                          No available times for this date.
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {value && (
+                    <div className="text-sm text-default-500">
+                      Current selection: {value.date} at {value.time}
+                    </div>
+                  )}
+                </div>
+              </Modal.Body>
+
+              <Modal.Footer>
+                <Button
+                  className="w-full"
+                  slot="close"
+                  onPress={handleConfirm}
+                >
+                  Continue
+                </Button>
+              </Modal.Footer>
+            </Modal.Dialog>
+          </Modal.Container>
+        </Modal.Backdrop>
+      </Modal>
+    </>
+  );
 }

@@ -30,7 +30,8 @@ export default function ContactPage() {
 
     try {
       const res = await fetch(
-        "https://kitty-cottage.c-syncapp.com/api/bubbles/contact",
+        // "https://kitty-cottage.c-syncapp.com/api/bubbles/contact",
+        "https://web-dev2.c-syncapp.com/api/bubbles/contact",
         {
           method: "POST",
           body: formData,

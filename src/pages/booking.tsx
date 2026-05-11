@@ -9,18 +9,18 @@ import { useState } from "react";
 
 export default function BookingPage() {
 
-    const openSlots: Record<string, string[]> = {
-        "2026-05-04": ["2:00 PM", "4:00 PM"],
-        "2026-05-05": ["9:30 AM", "11:00 AM"],
-        "2026-05-07": ["1:00 PM", "3:30 PM", "5:00 PM"],
-        "2026-05-10": ["10:00 AM"],
-        "2026-05-12": ["8:30 AM", "2:00 PM"],
-        "2026-05-15": ["9:00 AM", "12:30 PM", "4:00 PM"],
-        "2026-05-18": ["11:00 AM", "1:30 PM"],
-        "2026-05-21": ["10:30 AM", "3:00 PM"],
-        "2026-05-24": ["9:00 AM", "11:30 AM", "2:30 PM"],
-        "2026-05-28": ["1:00 PM", "4:30 PM"],
-    };
+    // const openSlots: Record<string, string[]> = {
+    //     "2026-05-04": ["2:00 PM", "4:00 PM"],
+    //     "2026-05-05": ["9:30 AM", "11:00 AM"],
+    //     "2026-05-07": ["1:00 PM", "3:30 PM", "5:00 PM"],
+    //     "2026-05-10": ["10:00 AM"],
+    //     "2026-05-12": ["8:30 AM", "2:00 PM"],
+    //     "2026-05-15": ["9:00 AM", "12:30 PM", "4:00 PM"],
+    //     "2026-05-18": ["11:00 AM", "1:30 PM"],
+    //     "2026-05-21": ["10:30 AM", "3:00 PM"],
+    //     "2026-05-24": ["9:00 AM", "11:30 AM", "2:30 PM"],
+    //     "2026-05-28": ["1:00 PM", "4:30 PM"],
+    // };
 
     const [selectedTime, setSelectedTime] = useState<SelectedAppointment>(null);
     const [location, setLocation] = useState("")
@@ -40,54 +40,58 @@ export default function BookingPage() {
     //     alert("Form submitted successfully!");
     // };
 
-    const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
+      
         if (!selectedTime) {
-            console.error("No appointment time selected");
-            return;
+          console.error("No appointment time selected");
+          return;
         }
-
+      
         const formData = new FormData(e.currentTarget);
-
-        // Parse date/time 
-        const [hourPart, minutePart] = selectedTime.time.split(/[: ]/);
-        const isPM = selectedTime.time.includes("PM");
-
-        let hours = Number(hourPart);
-        const minutes = Number(minutePart);
-
-        if (isPM && hours !== 12) hours += 12;
-        if (!isPM && hours === 12) hours = 0;
-
-        const [year, month, day] = selectedTime.date.split("-").map(Number);
-
-        const appointmentDate = new Date(year, month - 1, day, hours, minutes);
-
-        const appointment: Appointment = {
-            ownerName: formData.get("ownerName")?.toString() ?? "",
-            email: formData.get("email")?.toString() ?? "",
-            phoneNumber: formData.get("phoneNumber")?.toString() || undefined,
-            dogName: formData.get("dogName")?.toString() ?? "",
-
-            // assumes AvailabilityPicker gives { date, time }
-            time: appointmentDate,
-
-            furLength: formData.get("furLength")?.toString() ?? "",
-            dogSize: formData.get("dogSize")?.toString() ?? "",
-
-            allergy: allergy === "yes-allergy",
-            allergyDescription:
-                allergy === "yes-allergy"
-                    ? formData.get("allergyDescription")?.toString() || undefined
-                    : undefined,
-
-            location,
-            additionalDetails: formData.get("details")?.toString() ?? "",
+      
+        const appointment = {
+          ownerName: formData.get("ownerName")?.toString() ?? "",
+          email: formData.get("email")?.toString() ?? "",
+          phoneNumber: formData.get("phoneNumber")?.toString() || undefined,
+      
+          dogName: formData.get("dogName")?.toString() ?? "",
+      
+          furLength: (formData.get("furLength")?.toString() ?? "SHORT").toUpperCase(),
+          dogSize:
+            (formData.get("dogSize")?.toString() ?? "SMALL")
+              .replace("-size", "")
+              .toUpperCase(),
+      
+          allergy: allergy === "yes-allergy",
+          allergyDescription:
+            allergy === "yes-allergy"
+              ? formData.get("allergyDescription")?.toString() || undefined
+              : undefined,
+      
+          location,
+          additionalDetails: formData.get("details")?.toString() ?? "",
+      
+          slotId: selectedTime.slotId,
         };
-
-        console.log(appointment);
-    };
+      
+        const res = await fetch("https://web-dev2.c-syncapp.com/api/bubbles/booking", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(appointment),
+        });
+      
+        if (!res.ok) {
+          const error = await res.text();
+          console.error(error);
+          return;
+        }
+      
+        const created = await res.json();
+        console.log("Created appointment:", created);
+      };
 
     return (
         <DefaultLayout>
@@ -118,11 +122,11 @@ export default function BookingPage() {
                                     <Input placeholder="The pup to be scrubbed" variant="primary" />
                                 </TextField>
                                 {/* sets selectedTime  */}
-                                <AvailabilityPicker openSlots={openSlots} value={selectedTime} onChange={setSelectedTime} />
+                                <AvailabilityPicker value={selectedTime} onChange={setSelectedTime} />
                                 <div className="flex flex-col gap-4">
                                     <Label>Fur Length</Label>
                                     <RadioGroup defaultValue="pro" name="furLength" orientation="horizontal">
-                                        <Radio value="short">
+                                        <Radio value="SHORT">
                                             <Radio.Control>
                                                 <Radio.Indicator />
                                             </Radio.Control>
@@ -131,7 +135,7 @@ export default function BookingPage() {
                                                 {/* <Description>For side projects</Description> */}
                                             </Radio.Content>
                                         </Radio>
-                                        <Radio value="medium">
+                                        <Radio value="MEDIUM">
                                             <Radio.Control>
                                                 <Radio.Indicator />
                                             </Radio.Control>
@@ -140,7 +144,7 @@ export default function BookingPage() {
                                                 {/* <Description>Advanced reporting</Description> */}
                                             </Radio.Content>
                                         </Radio>
-                                        <Radio value="long">
+                                        <Radio value="LONG">
                                             <Radio.Control>
                                                 <Radio.Indicator />
                                             </Radio.Control>
@@ -155,7 +159,7 @@ export default function BookingPage() {
                                 <div className="flex flex-col gap-4">
                                     <Label>Doggy Size</Label>
                                     <RadioGroup defaultValue="small" name="dogSize" orientation="horizontal">
-                                        <Radio value="small">
+                                        <Radio value="SMALL">
                                             <Radio.Control>
                                                 <Radio.Indicator />
                                             </Radio.Control>
@@ -164,7 +168,7 @@ export default function BookingPage() {
                                                 <Description>Tiny but fierce</Description>
                                             </Radio.Content>
                                         </Radio>
-                                        <Radio value="medium-size">
+                                        <Radio value="MEDIUM">
                                             <Radio.Control>
                                                 <Radio.Indicator />
                                             </Radio.Control>
@@ -173,7 +177,7 @@ export default function BookingPage() {
                                                 <Description>Finely tuned agility</Description>
                                             </Radio.Content>
                                         </Radio>
-                                        <Radio value="large">
+                                        <Radio value="LARGE">
                                             <Radio.Control>
                                                 <Radio.Indicator />
                                             </Radio.Control>
