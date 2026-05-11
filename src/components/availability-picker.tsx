@@ -40,7 +40,6 @@ export default function AvailabilityPicker({
   onChange,
 }: AvailabilityPickerProps) {
   const now = new Date();
-  const baseURL = "web-dev2.c-syncapp.com"
   console.log("HITTING OMPONENT")
 
   const [openSlots, setOpenSlots] = useState<OpenSlotsByDate>({});

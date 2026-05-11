@@ -3,7 +3,6 @@
 import AvailabilityPicker, { SelectedAppointment } from "@/components/availability-picker";
 import { BubblesIcon } from "@/components/icons";
 import DefaultLayout from "@/layouts/default";
-import { Appointment } from "@/types";
 import { Button, Card, Checkbox, Description, Form, Input, Label, Radio, RadioGroup, Surface, Tabs, TextArea, TextField } from "@heroui/react";
 import { useState } from "react";
 
