@@ -51,10 +51,13 @@ export default function AvailabilityPicker({
   const [visibleYear, setVisibleYear] = useState(now.getFullYear());
 
   async function loadYear(year: number) {
+    const yearURL = `https://kitty-cottage.c-syncapp.com/api/bubbles/availability?year=${year}`
+    // const yearURL = `https://web-dev2.c-syncapp.com/api/bubbles/availability?year=${year}`
+
     console.log("GITIN loadyear loadin")
     if (loadedYears.current.has(year)) return;
 
-    const res = await fetch(`https://web-dev2.c-syncapp.com/api/bubbles/availability?year=${year}`);
+    const res = await fetch(yearURL);
     console.log("GOTRES", res)
     if (!res.ok) {
       console.log("GOTSTUFFBAD")

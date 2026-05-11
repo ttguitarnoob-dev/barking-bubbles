@@ -40,6 +40,10 @@ export default function BookingPage() {
     // };
 
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+
+        const submitURL = "https://kitty-cottage.c-syncapp.com/api/bubbles/booking"
+        // const submitURL = "https://web-dev2.c-syncapp.com/api/bubbles/booking"
+
         e.preventDefault();
       
         if (!selectedTime) {
@@ -74,7 +78,7 @@ export default function BookingPage() {
           slotId: selectedTime.slotId,
         };
       
-        const res = await fetch("https://web-dev2.c-syncapp.com/api/bubbles/booking", {
+        const res = await fetch(submitURL, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
