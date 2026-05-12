@@ -11,7 +11,7 @@ export default function BookingPage() {
 
     const [selectedTime, setSelectedTime] = useState<SelectedAppointment>(null);
     const [location, setLocation] = useState("")
-    const [isOurPlace, setisOurPlace] = useState(true);
+    const [isOurPlace, setisOurPlace] = useState(false);
     const [allergy, setAllergy] = useState("no-allergy")
     const navigate = useNavigate()
 
@@ -53,6 +53,10 @@ export default function BookingPage() {
       
           slotId: selectedTime.slotId,
         };
+
+        if(isOurPlace) {
+            appointment.location = "Our Place"
+        }
       
         const res = await fetch(submitURL, {
           method: "POST",
