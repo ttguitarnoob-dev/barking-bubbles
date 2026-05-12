@@ -10,12 +10,12 @@ export default function HeroSection() {
     const homePageText = {
         heroMessages: [
             {
-                title: "Scrubbin' Pups Like There's No Tomorrow",
-                subtitle: "Small hands, big love",
+                title: "Scrubbin' Pups One Paw At A Time",
+                subtitle: "Small hands, big heart",
             },
             {
-                title: "Making your dog not stink for the first time in forever",
-                subtitle: "Get that fur happy!",
+                title: "LESS STINK. MORE SNUGGLES",
+                subtitle: "Helping dogs look and feel their best",
             },
         ]
 
