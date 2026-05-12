@@ -5,39 +5,15 @@ import { BubblesIcon } from "@/components/icons";
 import DefaultLayout from "@/layouts/default";
 import { Button, Card, Checkbox, Description, Form, Input, Label, Radio, RadioGroup, Surface, Tabs, TextArea, TextField } from "@heroui/react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function BookingPage() {
-
-    // const openSlots: Record<string, string[]> = {
-    //     "2026-05-04": ["2:00 PM", "4:00 PM"],
-    //     "2026-05-05": ["9:30 AM", "11:00 AM"],
-    //     "2026-05-07": ["1:00 PM", "3:30 PM", "5:00 PM"],
-    //     "2026-05-10": ["10:00 AM"],
-    //     "2026-05-12": ["8:30 AM", "2:00 PM"],
-    //     "2026-05-15": ["9:00 AM", "12:30 PM", "4:00 PM"],
-    //     "2026-05-18": ["11:00 AM", "1:30 PM"],
-    //     "2026-05-21": ["10:30 AM", "3:00 PM"],
-    //     "2026-05-24": ["9:00 AM", "11:30 AM", "2:30 PM"],
-    //     "2026-05-28": ["1:00 PM", "4:30 PM"],
-    // };
 
     const [selectedTime, setSelectedTime] = useState<SelectedAppointment>(null);
     const [location, setLocation] = useState("")
     const [isOurPlace, setisOurPlace] = useState(true);
     const [allergy, setAllergy] = useState("no-allergy")
-
-    // const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    //     e.preventDefault();
-    //     const formData = new FormData(e.currentTarget);
-    //     const data: Record<string, string> = {};
-
-    //     // Convert FormData to plain object
-    //     formData.forEach((value, key) => {
-    //         data[key] = value.toString();
-    //     });
-
-    //     alert("Form submitted successfully!");
-    // };
+    const navigate = useNavigate()
 
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 
@@ -94,6 +70,7 @@ export default function BookingPage() {
       
         const created = await res.json();
         console.log("Created appointment:", created);
+        navigate('/success')
       };
 
     return (
