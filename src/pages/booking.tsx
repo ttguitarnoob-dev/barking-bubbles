@@ -84,7 +84,7 @@ export default function BookingPage() {
     return (
         <DefaultLayout>
             <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
-                <h1 className="text-4xl"><span className="font-bold text-red-600">** Important **</span> This booking form is still under development. You can play with it but it doesn't do anything when you click submit! For now, please visit our <a className="font-bold underline text-secondary" href="/contact">Contact Page</a> if you would like to book.</h1>
+                {/* <h1 className="text-4xl"><span className="font-bold text-red-600">** Important **</span> This booking form is still under development. You can play with it but it doesn't do anything when you click submit! For now, please visit our <a className="font-bold underline text-secondary" href="/contact">Contact Page</a> if you would like to book.</h1> */}
                 <Card className="bg-primary/30 backdrop-blur-sm w-full max-w-xl">
                     <Card.Header>
                         <Card.Title className="text-xl">Scheduling</Card.Title>
@@ -245,19 +245,11 @@ export default function BookingPage() {
                                                         <Radio.Indicator />
                                                     </Radio.Control>
                                                     <Radio.Content>
-                                                        <Label>Elgin</Label>
-                                                        <Description>18517 E US Highway 290</Description>
+                                                        <Label>Cedar Creek</Label>
+                                                        <Description>2631 State Hwy 71</Description>
                                                     </Radio.Content>
                                                 </Radio>
-                                                <Radio value="giddings">
-                                                    <Radio.Control>
-                                                        <Radio.Indicator />
-                                                    </Radio.Control>
-                                                    <Radio.Content>
-                                                        <Label>Giddings</Label>
-                                                        <Description>2911 E Austin St</Description>
-                                                    </Radio.Content>
-                                                </Radio>
+                                                
                                             </RadioGroup>
 
                                         </Tabs.Panel>
