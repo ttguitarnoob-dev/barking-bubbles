@@ -12,7 +12,7 @@ export default function IndexPage() {
       </div>
 
       <div className="mt-30">
-      <ImageTextSection imageSrc="/Images/dog-mirror.webp"  titleText="A Primped Dog Is A Happy Dog" subText="We will treat your dog like the Prince(ss) that it truly is!" />
+      <ImageTextSection imageSrc="/Images/princess-dog.webp"  titleText="A Primped Dog Is A Happy Dog" subText="We will treat your dog like the Prince(ss) that it truly is!" />
       </div>
       
     </DefaultLayout>
