@@ -3,7 +3,7 @@
 import AvailabilityPicker, { SelectedAppointment } from "@/components/availability-picker";
 import { BubblesIcon } from "@/components/icons";
 import DefaultLayout from "@/layouts/default";
-import { Button, Card, Checkbox, Description, Form, Input, Label, Radio, RadioGroup, Surface, Tabs, TextArea, TextField } from "@heroui/react";
+import { Button, Card, Checkbox, Description, Form, Input, Label, Radio, RadioGroup, Spinner, Surface, Tabs, TextArea, TextField } from "@heroui/react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -13,74 +13,78 @@ export default function BookingPage() {
     const [location, setLocation] = useState("")
     const [isOurPlace, setisOurPlace] = useState(false);
     const [allergy, setAllergy] = useState("no-allergy")
+    const [isSubmitting, setIsSubmitting] = useState(false)
     const navigate = useNavigate()
 
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-
+        setIsSubmitting(true)
         const submitURL = "https://kitty-cottage.c-syncapp.com/api/bubbles/booking"
         // const submitURL = "https://web-dev2.c-syncapp.com/api/bubbles/booking"
 
         e.preventDefault();
-      
+
         if (!selectedTime) {
-          console.error("No appointment time selected");
-          return;
+            console.error("No appointment time selected");
+            return;
         }
-      
+
         const formData = new FormData(e.currentTarget);
-      
+
         const appointment = {
-          ownerName: formData.get("ownerName")?.toString() ?? "",
-          email: formData.get("email")?.toString() ?? "",
-          phoneNumber: formData.get("phoneNumber")?.toString() || undefined,
-      
-          dogName: formData.get("dogName")?.toString() ?? "",
-      
-          furLength: (formData.get("furLength")?.toString() ?? "SHORT").toUpperCase(),
-          dogSize:
-            (formData.get("dogSize")?.toString() ?? "SMALL")
-              .replace("-size", "")
-              .toUpperCase(),
-      
-          allergy: allergy === "yes-allergy",
-          allergyDescription:
-            allergy === "yes-allergy"
-              ? formData.get("allergyDescription")?.toString() || undefined
-              : undefined,
-      
-          location,
-          additionalDetails: formData.get("details")?.toString() ?? "",
-      
-          slotId: selectedTime.slotId,
+            ownerName: formData.get("ownerName")?.toString() ?? "",
+            email: formData.get("email")?.toString() ?? "",
+            phoneNumber: formData.get("phoneNumber")?.toString() || undefined,
+
+            dogName: formData.get("dogName")?.toString() ?? "",
+
+            furLength: (formData.get("furLength")?.toString() ?? "SHORT").toUpperCase(),
+            dogSize:
+                (formData.get("dogSize")?.toString() ?? "SMALL")
+                    .replace("-size", "")
+                    .toUpperCase(),
+
+            allergy: allergy === "yes-allergy",
+            allergyDescription:
+                allergy === "yes-allergy"
+                    ? formData.get("allergyDescription")?.toString() || undefined
+                    : undefined,
+
+            location,
+            additionalDetails: formData.get("details")?.toString() ?? "",
+
+            slotId: selectedTime.slotId,
         };
 
-        if(isOurPlace) {
+        if (isOurPlace) {
             appointment.location = "Our Place"
         }
-      
+
         const res = await fetch(submitURL, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(appointment),
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(appointment),
         });
-      
+
         if (!res.ok) {
-          const error = await res.text();
-          console.error(error);
-          return;
+            const error = await res.text();
+            alert(error)
+            setIsSubmitting(false)
+            console.error(error);
+            return;
         }
-      
+
         const created = await res.json();
         console.log("Created appointment:", created);
+        setIsSubmitting(false)
         navigate('/success')
-      };
+    };
 
     return (
         <DefaultLayout>
             <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
-<h1 className="text-4xl"><span className="font-bold text-red-600">** Important **</span> This booking form is still under development. You can play with it but it doesn't do anything when you click submit! For now, please visit our <a className="font-bold underline text-secondary" href="/contact">Contact Page</a> if you would like to book.</h1>
+                <h1 className="text-4xl"><span className="font-bold text-red-600">** Important **</span> This booking form is still under development. You can play with it but it doesn't do anything when you click submit! For now, please visit our <a className="font-bold underline text-secondary" href="/contact">Contact Page</a> if you would like to book.</h1>
                 <Card className="bg-primary/30 backdrop-blur-sm w-full max-w-xl">
                     <Card.Header>
                         <Card.Title className="text-xl">Scheduling</Card.Title>
@@ -290,7 +294,7 @@ export default function BookingPage() {
                         </Card.Content>
                         <Card.Footer className="mt-4 flex flex-col gap-2">
                             <Button className="w-full" type="submit">
-                                <BubblesIcon />
+                                {isSubmitting ? <Spinner /> : <BubblesIcon />}
                                 Submit
                             </Button>
                         </Card.Footer>
