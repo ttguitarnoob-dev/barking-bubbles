@@ -31,6 +31,31 @@ function formatDate(date: string) {
   });
 }
 
+function formatUtcTimeToLocal(date: string, utcTime: string) {
+  const utcDate = new Date(`${date}T${convert12HourTo24Hour(utcTime)}Z`);
+
+  return utcDate.toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  });
+}
+
+function convert12HourTo24Hour(time12h: string) {
+  const [time, modifier] = time12h.split(" ");
+  let [hours, minutes] = time.split(":");
+
+  if (hours === "12") {
+    hours = "00";
+  }
+
+  if (modifier === "PM") {
+    hours = String(Number(hours) + 12);
+  }
+
+  return `${hours.padStart(2, "0")}:${minutes}:00`;
+}
+
 function dateKey(date: DateValue) {
   return date.toString();
 }
@@ -40,7 +65,8 @@ export default function AvailabilityPicker({
   onChange,
 }: AvailabilityPickerProps) {
   const now = new Date();
-  console.log("HITTING OMPONENT")
+
+  console.log("HITTING OMPONENT");
 
   const [openSlots, setOpenSlots] = useState<OpenSlotsByDate>({});
   const loadedYears = useRef(new Set<number>());
@@ -52,19 +78,23 @@ export default function AvailabilityPicker({
 
   async function loadYear(year: number) {
     const yearURL = `https://kitty-cottage.c-syncapp.com/api/bubbles/availability?year=${year}`
-    // const yearURL = `https://web-dev2.c-syncapp.com/api/bubbles/availability?year=${year}`
+    // const yearURL = `https://web-dev2.c-syncapp.com/api/bubbles/availability?year=${year}`;
 
-    console.log("GITIN loadyear loadin")
+    console.log("GITIN loadyear loadin");
+
     if (loadedYears.current.has(year)) return;
 
     const res = await fetch(yearURL);
-    console.log("GOTRES", res)
+
+    console.log("GOTRES", res);
+
     if (!res.ok) {
-      console.log("GOTSTUFFBAD")
-    };
+      console.log("GOTSTUFFBAD");
+    }
 
     const data: OpenSlotsByDate = await res.json();
-    console.log("SLOTS", data)
+
+    console.log("SLOTS", data);
 
     setOpenSlots((prev) => ({
       ...prev,
@@ -82,6 +112,7 @@ export default function AvailabilityPicker({
 
   const selectedSlots = useMemo(() => {
     if (!selectedDateKey) return [];
+
     return openSlots[selectedDateKey] ?? [];
   }, [selectedDateKey, openSlots]);
 
@@ -94,12 +125,13 @@ export default function AvailabilityPicker({
     if (!selectedDateKey || !selectedSlotId) return;
 
     const slot = selectedSlots.find((s) => s.id === selectedSlotId);
+
     if (!slot) return;
 
     onChange({
       date: selectedDateKey,
       slotId: slot.id,
-      time: slot.time,
+      time: formatUtcTimeToLocal(selectedDateKey, slot.time),
     });
   }
 
@@ -192,7 +224,10 @@ export default function AvailabilityPicker({
                                 variant={isSelected ? "primary" : "outline"}
                                 onPress={() => setSelectedSlotId(slot.id)}
                               >
-                                {slot.time}
+                                {formatUtcTimeToLocal(
+                                  selectedDateKey!,
+                                  slot.time
+                                )}
                               </Button>
                             );
                           })}
